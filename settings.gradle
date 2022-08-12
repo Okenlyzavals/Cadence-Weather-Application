@@ -1,0 +1,6 @@
+rootProject.name = 'weater-test-app'
+include 'activity-worker'
+include 'workflow-worker'
+include 'workflow-launcher'
+include 'cadence-registration'
+

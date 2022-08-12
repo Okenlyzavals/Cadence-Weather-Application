@@ -1,0 +1,50 @@
+version: '3'
+services:
+  cassandra:
+    image: cassandra:3.11
+    ports:
+      - "9042:9042"
+  cadence:
+    image: ubercadence/server:master-auto-setup
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+      - "8002:8002"
+      - "8003:8003"
+      - "7933:7933"
+      - "7934:7934"
+      - "7935:7935"
+      - "7939:7939"
+      - "7833:7833"
+    environment:
+      - "CASSANDRA_SEEDS=cassandra"
+      - "DYNAMIC_CONFIG_FILE_PATH=config/dynamicconfig/development.yaml"
+    depends_on:
+      - cassandra
+  cadence-web:
+    image: ubercadence/web:latest
+    environment:
+      - "CADENCE_TCHANNEL_PEERS=cadence:7933"
+    ports:
+      - "8088:8088"
+    depends_on:
+      - cadence
+  h2:
+    image: oscarfonts/h2
+    ports:
+      - '8071:8071'
+
+  activity-worker:
+    build: ./activity-worker
+    ports:
+      - '8070:8070'
+
+  workflow-worker:
+    build: ./workflow-worker
+    ports:
+      - '8079:8079'
+
+  workflow-launcher:
+    build: ./workflow-launcher
+    ports:
+      - '8078:8078'

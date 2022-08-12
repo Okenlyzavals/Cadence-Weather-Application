@@ -1,0 +1,9 @@
+dependencies{
+    implementation project(':cadence-registration')
+    implementation project(':activity-worker')
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.7.2'
+}
+
+springBoot {
+    mainClass = "com.innowise.demo.WorkflowWorker"
+}

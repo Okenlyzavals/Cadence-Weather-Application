@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.2' apply false
+}
+
+group 'com.innowise.demo'
+version '1.0.0'
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    mavenCentral()
+}
+
+configure(subprojects - project(':cadence-registration')) {
+    apply plugin: 'org.springframework.boot'
+}
+
+subprojects{
+    apply plugin: 'java'
+
+    group 'com.innowise.demo'
+    version '1.0.0'
+
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+
+    compileJava.options.encoding = 'UTF-8'
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+    dependencies{
+        annotationProcessor 'org.projectlombok:lombok:1.18.24'
+        implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+        implementation group: 'com.uber.cadence', name: 'cadence-client', version: '3.7.1'
+
+    }
+
+}

@@ -1,0 +1,9 @@
+dependencies{
+    implementation project(':workflow-worker')
+    implementation project(':cadence-registration')
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.7.2'
+}
+
+springBoot {
+    mainClass = "com.innowise.demo.WorkflowLauncher"
+}
